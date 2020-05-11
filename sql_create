@@ -1,0 +1,54 @@
+CREATE TABLE Vehicles
+(
+  Car_number INT NOT NULL,
+  Model VARCHAR(20) NOT NULL,
+  Company VARCHAR(20) NOT NULL,
+  license INT NOT NULL,
+  Year INT NOT NULL,
+  Color VARCHAR(20) NOT NULL,
+  PRIMARY KEY (Car_number)
+);
+
+CREATE TABLE Supplies_Maintenance
+(
+  Number INT NOT NULL,
+  Name VARCHAR(20) NOT NULL,
+  Department INT NOT NULL,
+  PRIMARY KEY (Number)
+);
+
+CREATE TABLE Nutritionans
+(
+  Name VARCHAR(20) NOT NULL,
+  Nutritionans_id INT NOT NULL,
+  PRIMARY KEY (Nutritionans_id)
+);
+
+CREATE TABLE provides
+(
+  Car_number INT NOT NULL,
+  Number INT NOT NULL,
+  PRIMARY KEY (Car_number, Number),
+  FOREIGN KEY (Car_number) REFERENCES Vehicles(Car_number),
+  FOREIGN KEY (Number) REFERENCES Supplies_Maintenance(Number)
+);
+
+CREATE TABLE Food
+(
+  Name VARCHAR(20) NOT NULL,
+  Quantity INT NOT NULL,
+  Nutritionans_id INT NOT NULL,
+  Barcode INT NOT NULL,
+  Number INT NOT NULL,
+  PRIMARY KEY (Barcode),
+  FOREIGN KEY (Number) REFERENCES Supplies_Maintenance(Number)
+);
+
+CREATE TABLE Contains
+(
+  Nutritionans_id INT NOT NULL,
+  Barcode INT NOT NULL,
+  PRIMARY KEY (Nutritionans_id, Barcode),
+  FOREIGN KEY (Nutritionans_id) REFERENCES Nutritionans(Nutritionans_id),
+  FOREIGN KEY (Barcode) REFERENCES Food(Barcode)
+);
